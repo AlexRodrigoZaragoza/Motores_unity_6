@@ -1,16 +1,31 @@
 using UnityEngine;
 
-public class InventoryControler : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+public class InventoryControler : MonoBehaviour {
+
+    public static InventoryControler Inventory { get; private set; }
+    public List<string> items = new List<string>();
+    public delegate void InventoryChanged();
+    public event InventoryChanged OnInventoryChanged;
+
+    void Awake() {
+        if (Inventory != null && Inventory != this)
+            Destroy(gameObject);
+        else
+            Inventory = this;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void AddItem(string item) {
+        if (!items.Contains(item))
+        {
+            items.Add(item);
+            OnInventoryChanged?.Invoke();
+        }
+    }
+
+    public void RemoveItem(string item) {
+        if (items.Contains(item)) {
+            items.Remove(item);
+            OnInventoryChanged?.Invoke();
+        }
     }
 }
