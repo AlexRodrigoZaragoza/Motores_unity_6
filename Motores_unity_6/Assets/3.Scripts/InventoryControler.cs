@@ -1,9 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class InventoryControler : MonoBehaviour {
 
     public static InventoryControler Inventory { get; private set; }
-    public List<string> items = new List<string>();
+    public List <string> items = new List<string>();
     public delegate void InventoryChanged();
     public event InventoryChanged OnInventoryChanged;
 
