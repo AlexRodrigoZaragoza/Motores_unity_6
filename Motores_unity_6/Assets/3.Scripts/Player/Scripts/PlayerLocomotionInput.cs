@@ -5,11 +5,14 @@ using UnityEngine.InputSystem;
 
 namespace FinalCharacterController
 {
+
+    [DefaultExecutionOrder(-2)]
     public class PlayerLocomotionInput : MonoBehaviour, PlayerControls.IPlayerLocomotionMapActions
     {
         public PlayerControls PlayerControls {  get; private set; }
 
         public Vector2 MovementInput { get; private set; }
+        public Vector2 LookInput { get; private set; }
 
         private void OnEnable()
         {
@@ -26,7 +29,12 @@ namespace FinalCharacterController
             PlayerControls.PlayerLocomotionMap.RemoveCallbacks(this);
         }
 
-        public void OnNewaction(InputAction.CallbackContext context)
+        public void OnCamera(InputAction.CallbackContext context)
+        {
+            LookInput = context.ReadValue<Vector2>();
+        }
+
+        public void OnMove(InputAction.CallbackContext context)
         {
             MovementInput = context.ReadValue<Vector2>();
             print(MovementInput);
