@@ -9,8 +9,7 @@ namespace FinalCharacterController
     [DefaultExecutionOrder(-2)]
     public class PlayerLocomotionInput : MonoBehaviour, PlayerControls.IPlayerLocomotionMapActions
     {
-        public PlayerControls PlayerControls {  get; private set; }
-
+        public PlayerControls PlayerControls { get; private set; }
         public Vector2 MovementInput { get; private set; }
         public Vector2 LookInput { get; private set; }
 

@@ -12,9 +12,9 @@ namespace FinalCharacterController
         [SerializeField] private Camera _playerCamera;
 
         [Header("Base Movement")]
-        public float runAcceleration = 0.25f;
+        public float runAcceleration = 50f;
         public float runSpeed = 4f;
-        public float drag = 0.1f;
+        public float drag = 20f;
 
         [Header("Camera Settings")]
         public float lookSenseH = 0.1f;
@@ -40,10 +40,12 @@ namespace FinalCharacterController
             Vector3 movementDelta = movementDirection * runAcceleration * Time.deltaTime;
             Vector3 newVelocity = _characterController.velocity + movementDelta;
 
+            // Add drag to player
             Vector3 currentDrag = newVelocity.normalized * drag * Time.deltaTime;
             newVelocity = (newVelocity.magnitude > drag * Time.deltaTime) ? newVelocity - currentDrag : Vector3.zero;
             newVelocity = Vector3.ClampMagnitude(newVelocity, runSpeed);
 
+            // Move character (Unity suggests only calling this once per tick)
             _characterController.Move(newVelocity * Time.deltaTime);
         }
 
