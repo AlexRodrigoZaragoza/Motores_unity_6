@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class WheelsBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private CarMinigameController _controller;
     private DragScript dragScript;
     private float currentHoldTime;
     private bool screwable;
@@ -14,6 +15,7 @@ public class WheelsBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     private void Start()
     {
+        _controller = FindFirstObjectByType<CarMinigameController>();
         dragScript = GetComponent<DragScript>();
         originalScale = transform.localScale;
     }
@@ -43,6 +45,8 @@ public class WheelsBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExit
             if (currentHoldTime >= screwableTime)
             {
                 dragScript.screwed = true;
+                _controller.wheelsScrewed += 1;
+                _controller.CheckIfEnded();
                 Debug.Log("Se ha atornillado");
             }
             else
