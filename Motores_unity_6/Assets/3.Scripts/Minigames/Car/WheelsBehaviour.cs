@@ -44,6 +44,12 @@ public class WheelsBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
             if (currentHoldTime >= screwableTime)
             {
+                if (_controller.audioSource.clip != _controller.audioClips[0] || !_controller.audioSource.isPlaying)
+                {
+                    _controller.audioSource.clip = _controller.audioClips[0];
+                    _controller.audioSource.Play();
+                }
+
                 dragScript.screwed = true;
                 _controller.wheelsScrewed += 1;
                 _controller.CheckIfEnded();
@@ -51,6 +57,12 @@ public class WheelsBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExit
             }
             else
             {
+                if (_controller.audioSource.clip != _controller.audioClips[1] || !_controller.audioSource.isPlaying)
+                {
+                    _controller.audioSource.clip = _controller.audioClips[1];
+                    _controller.audioSource.Play();
+                }
+
                 float scaleProgress = Mathf.Lerp(1f, reductionFactor, currentHoldTime);
 
                 if ((originalScale * scaleProgress).magnitude >= new Vector3(1,1,1).magnitude)

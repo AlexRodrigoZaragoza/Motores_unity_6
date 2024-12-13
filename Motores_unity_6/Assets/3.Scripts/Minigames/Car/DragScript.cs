@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DragScript : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    private CarMinigameController _controller;
     [SerializeField] List<RectTransform> positionsToSnap;
     private Vector3 inicialTransform;
     public Transform initialParent;
@@ -13,6 +14,7 @@ public class DragScript : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
 
     private void Start()
     {
+        _controller = FindFirstObjectByType<CarMinigameController>();
         inicialTransform = GetComponent<RectTransform>().position;
         initialParent = GetComponent<RectTransform>().parent;
     }
@@ -43,9 +45,15 @@ public class DragScript : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
         {
             if(rectTrans.position == img.rectTransform.position)
             {
+                _controller.wheelsSnapped += 1;
                 snaped = true;
                 return;
             }
+        }
+
+        if(snaped)
+        {
+            _controller.wheelsSnapped -= 1;
         }
 
         snaped = false;
