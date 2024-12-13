@@ -13,7 +13,8 @@ public class SnapScript : MonoBehaviour, IDropHandler
 
 
         GameObject dropped = eventData.pointerDrag;
-        dropped.transform.position = transform.position;
-        dropped.transform.SetParent(transform, true);
+        dropped.transform.SetParent(transform, false);
+        dropped.transform.localPosition = Vector3.zero;
+
     }
 }

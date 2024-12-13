@@ -32,6 +32,7 @@ public class WheelsBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         if (dragScript.snaped)
         {
+            _controller.audioSource.Stop();
             screwable = false;
         }
     }
@@ -74,6 +75,11 @@ public class WheelsBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExit
         }
         else
         {
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                _controller.audioSource.Stop();
+            }
+
             currentHoldTime = 0;
 
             if (!dragScript.screwed)
