@@ -9,7 +9,7 @@ public class DragScript : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
     private Vector3 inicialTransform;
     public Transform initialParent;
     private Image img;
-    private bool snaped;
+    public bool snaped, screwed;
 
     private void Start()
     {
@@ -19,22 +19,21 @@ public class DragScript : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (screwed) return;
         img = GetComponent<Image>();
         img.raycastTarget = false;
-        Debug.Log("Begin drag");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (screwed) return;
         transform.position = Input.mousePosition;
-        Debug.Log("Dragging");
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("End dragging");
+        if (screwed) return;
         img.raycastTarget = true;
-
         CheckIfOver(eventData);
     }
 
