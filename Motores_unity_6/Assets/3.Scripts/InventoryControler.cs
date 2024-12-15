@@ -16,8 +16,7 @@ public class InventoryControler : MonoBehaviour {
     }
 
     public void AddItem(string item) {
-        if (!items.Contains(item))
-        {
+        if (!items.Contains(item)){
             items.Add(item);
             OnInventoryChanged?.Invoke();
         }

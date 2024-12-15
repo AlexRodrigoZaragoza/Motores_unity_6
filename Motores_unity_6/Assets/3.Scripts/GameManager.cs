@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour {
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape))
             PauseGame();
+        if(!alive){
+            Die();
+        }
     }
     
     public void PauseGame() {
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour {
             backgroundMusic.Pause();
             nightSounds.Pause();
             monsterSound.volume = pausedVolume;
-            //SceneManager.LoadScene("EscenaMinijuegoCables");
+            SceneManager.LoadScene("EscenaMinijuegoCables");
             Debug.Log("Juego en pausa");
         }
         else {
@@ -55,8 +58,8 @@ public class GameManager : MonoBehaviour {
         currentAction = action;
     }
 
-    public void dead() {
-        alive = false;
-
+    public void Die() {
+        Debug.Log("El jugador ha muerto");
+        SceneManager.LoadScene("GameOver");
     }
 }
