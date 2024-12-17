@@ -17,10 +17,11 @@ public class GameManager : MonoBehaviour {
 
     void Awake(){
         if (Instance != null && Instance != this)
-            Destroy(gameObject);
+            Destroy(Instance);
         else{
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(Instance);
+            DontDestroyOnLoad(monsterSound);
         }
     }
 
@@ -41,12 +42,12 @@ public class GameManager : MonoBehaviour {
             backgroundMusic.Pause();
             nightSounds.Pause();
             monsterSound.volume = pausedVolume;
-            SceneManager.LoadScene("EscenaMinijuegoCables");
+            SceneManager.LoadScene("GamePause");
             Debug.Log("Juego en pausa");
         }
         else {
             Time.timeScale = 1f;
-            //SceneManager.LoadScene("EscenaGasolineraConIAGameManager");
+            SceneManager.LoadScene("EscenaGasolineraConIAGameManager");
             backgroundMusic.UnPause();
             nightSounds.UnPause();
             monsterSound.volume = originalVolume;
@@ -56,6 +57,10 @@ public class GameManager : MonoBehaviour {
 
     public void SetPlayerAction(PlayerAction action) {
         currentAction = action;
+    }
+ 
+    public void DestroyGameManager() {
+        Destroy(Instance);
     }
 
     public void Die() {
