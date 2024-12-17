@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 72136535}
-  LocomotionBlendSpeed: 0.02
+  LocomotionBlendSpeed: 10
 --- !u!114 &72136538
 MonoBehaviour:
   m_ObjectHideFlags: 0
