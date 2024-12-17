@@ -11,10 +11,19 @@ namespace FinalCharacterController
 
         private PlayerLocomotionInput _playerLocomotionInput;
         private PlayerState _playerState;
+        private PlayerController _playerController;
+        private PlayerInputAction _playerInputAction;
+
+        //Locomotion
 
         private static int inputXHash = Animator.StringToHash("inputX");
         private static int inputYHash = Animator.StringToHash("inputY");
         private static int inputMagnitudeHash = Animator.StringToHash("inputMagnitude");
+
+        //Actions
+
+        private static int isCrouchingHash = Animator.StringToHash("Crouch");
+        private static int isInteractingHash = Animator.StringToHash("Interact");
 
         private Vector3 _currentBlendInput = Vector3.zero;
 
@@ -22,6 +31,7 @@ namespace FinalCharacterController
         {
             _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
             _playerState = GetComponent<PlayerState>();
+            _playerInputAction = GetComponent<PlayerInputAction>();
         }
 
         private void Update()
@@ -35,6 +45,10 @@ namespace FinalCharacterController
 
             Vector2 inputTarget = isSprinting ? _playerLocomotionInput.MovementInput * 1.5f : _playerLocomotionInput.MovementInput;
             _currentBlendInput = Vector3.Lerp(_currentBlendInput, inputTarget, LocomotionBlendSpeed * Time.deltaTime);
+
+
+            _animator.SetBool(isInteractingHash, _playerInputAction.InteractPressed);
+            _animator.SetBool(isCrouchingHash, _playerInputAction.CrouchPressed);
 
 
             _animator.SetFloat(inputXHash, _currentBlendInput.x);

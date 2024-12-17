@@ -136,6 +136,54 @@ namespace FinalCharacterController
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerActionMap"",
+            ""id"": ""5afbe743-84d8-4e13-870d-edaa7f544c49"",
+            ""actions"": [
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""b115df3d-0478-4768-a6a7-8030180c5e32"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""f56cb7ec-5731-4349-94ab-435a117fc92d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""54e89df9-e397-4783-a2b3-4764b3e648c0"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""186b7904-c68d-400a-982f-fda65d53f4f0"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -145,11 +193,16 @@ namespace FinalCharacterController
             m_PlayerLocomotionMap_Move = m_PlayerLocomotionMap.FindAction("Move", throwIfNotFound: true);
             m_PlayerLocomotionMap_Camera = m_PlayerLocomotionMap.FindAction("Camera", throwIfNotFound: true);
             m_PlayerLocomotionMap_Sprint = m_PlayerLocomotionMap.FindAction("Sprint", throwIfNotFound: true);
+            // PlayerActionMap
+            m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
+            m_PlayerActionMap_Crouch = m_PlayerActionMap.FindAction("Crouch", throwIfNotFound: true);
+            m_PlayerActionMap_Interact = m_PlayerActionMap.FindAction("Interact", throwIfNotFound: true);
         }
 
         ~@PlayerControls()
         {
             UnityEngine.Debug.Assert(!m_PlayerLocomotionMap.enabled, "This will cause a leak and performance issues, PlayerControls.PlayerLocomotionMap.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_PlayerActionMap.enabled, "This will cause a leak and performance issues, PlayerControls.PlayerActionMap.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -269,11 +322,70 @@ namespace FinalCharacterController
             }
         }
         public PlayerLocomotionMapActions @PlayerLocomotionMap => new PlayerLocomotionMapActions(this);
+
+        // PlayerActionMap
+        private readonly InputActionMap m_PlayerActionMap;
+        private List<IPlayerActionMapActions> m_PlayerActionMapActionsCallbackInterfaces = new List<IPlayerActionMapActions>();
+        private readonly InputAction m_PlayerActionMap_Crouch;
+        private readonly InputAction m_PlayerActionMap_Interact;
+        public struct PlayerActionMapActions
+        {
+            private @PlayerControls m_Wrapper;
+            public PlayerActionMapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Crouch => m_Wrapper.m_PlayerActionMap_Crouch;
+            public InputAction @Interact => m_Wrapper.m_PlayerActionMap_Interact;
+            public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PlayerActionMapActions set) { return set.Get(); }
+            public void AddCallbacks(IPlayerActionMapActions instance)
+            {
+                if (instance == null || m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Add(instance);
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
+            }
+
+            private void UnregisterCallbacks(IPlayerActionMapActions instance)
+            {
+                @Crouch.started -= instance.OnCrouch;
+                @Crouch.performed -= instance.OnCrouch;
+                @Crouch.canceled -= instance.OnCrouch;
+                @Interact.started -= instance.OnInteract;
+                @Interact.performed -= instance.OnInteract;
+                @Interact.canceled -= instance.OnInteract;
+            }
+
+            public void RemoveCallbacks(IPlayerActionMapActions instance)
+            {
+                if (m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IPlayerActionMapActions instance)
+            {
+                foreach (var item in m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public PlayerActionMapActions @PlayerActionMap => new PlayerActionMapActions(this);
         public interface IPlayerLocomotionMapActions
         {
             void OnMove(InputAction.CallbackContext context);
             void OnCamera(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
+        }
+        public interface IPlayerActionMapActions
+        {
+            void OnCrouch(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
         }
     }
 }
