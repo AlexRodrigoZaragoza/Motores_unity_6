@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 1184036633}
   - component: {fileID: 1184036634}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: InteractionManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,6 +419,26 @@ PrefabInstance:
     - target: {fileID: 6248733516813234682, guid: 4689533ddb87bcd4f9535a1ae1b67092, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894231796243659601, guid: 4689533ddb87bcd4f9535a1ae1b67092, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6970833
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894231796243659601, guid: 4689533ddb87bcd4f9535a1ae1b67092, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7169901
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894231796243659601, guid: 4689533ddb87bcd4f9535a1ae1b67092, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -2.2754597e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894231796243659601, guid: 4689533ddb87bcd4f9535a1ae1b67092, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 3.1253264e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8894231796243659601, guid: 4689533ddb87bcd4f9535a1ae1b67092, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 91.61301
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
