@@ -46,6 +46,15 @@ namespace FinalCharacterController
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""09dd1333-791a-4fb6-a11d-d5fbb77488bf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -114,6 +123,17 @@ namespace FinalCharacterController
                     ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c504851-d16a-47e5-8f5b-b25665c75357"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -124,6 +144,7 @@ namespace FinalCharacterController
             m_PlayerLocomotionMap = asset.FindActionMap("PlayerLocomotionMap", throwIfNotFound: true);
             m_PlayerLocomotionMap_Move = m_PlayerLocomotionMap.FindAction("Move", throwIfNotFound: true);
             m_PlayerLocomotionMap_Camera = m_PlayerLocomotionMap.FindAction("Camera", throwIfNotFound: true);
+            m_PlayerLocomotionMap_Sprint = m_PlayerLocomotionMap.FindAction("Sprint", throwIfNotFound: true);
         }
 
         ~@PlayerControls()
@@ -192,12 +213,14 @@ namespace FinalCharacterController
         private List<IPlayerLocomotionMapActions> m_PlayerLocomotionMapActionsCallbackInterfaces = new List<IPlayerLocomotionMapActions>();
         private readonly InputAction m_PlayerLocomotionMap_Move;
         private readonly InputAction m_PlayerLocomotionMap_Camera;
+        private readonly InputAction m_PlayerLocomotionMap_Sprint;
         public struct PlayerLocomotionMapActions
         {
             private @PlayerControls m_Wrapper;
             public PlayerLocomotionMapActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_PlayerLocomotionMap_Move;
             public InputAction @Camera => m_Wrapper.m_PlayerLocomotionMap_Camera;
+            public InputAction @Sprint => m_Wrapper.m_PlayerLocomotionMap_Sprint;
             public InputActionMap Get() { return m_Wrapper.m_PlayerLocomotionMap; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -213,6 +236,9 @@ namespace FinalCharacterController
                 @Camera.started += instance.OnCamera;
                 @Camera.performed += instance.OnCamera;
                 @Camera.canceled += instance.OnCamera;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
 
             private void UnregisterCallbacks(IPlayerLocomotionMapActions instance)
@@ -223,6 +249,9 @@ namespace FinalCharacterController
                 @Camera.started -= instance.OnCamera;
                 @Camera.performed -= instance.OnCamera;
                 @Camera.canceled -= instance.OnCamera;
+                @Sprint.started -= instance.OnSprint;
+                @Sprint.performed -= instance.OnSprint;
+                @Sprint.canceled -= instance.OnSprint;
             }
 
             public void RemoveCallbacks(IPlayerLocomotionMapActions instance)
@@ -244,6 +273,7 @@ namespace FinalCharacterController
         {
             void OnMove(InputAction.CallbackContext context);
             void OnCamera(InputAction.CallbackContext context);
+            void OnSprint(InputAction.CallbackContext context);
         }
     }
 }
