@@ -12,7 +12,6 @@ public class CarMinigameController : MonoBehaviour
     public int wheelsScrewed;
     [SerializeField] private GameObject carSide1, carSide2;
 
-    //HABIRA QUE ACTIVAR ESTE CANVAS SOLO SI TIENE LAS X RUEDAS NECESARIAS
     //HAY QUE ASIGNAR A MANO EL AUDIO SOURCE
     private void Update()
     {
@@ -21,7 +20,7 @@ public class CarMinigameController : MonoBehaviour
             infoText.text = "Arrastra las ruedas al coche";
         }
         else
-            infoText.text = "Mantén <E> sobre las ruedas colocadas para atornillarlas";
+            infoText.text = "Mantï¿½n <E> sobre las ruedas colocadas para atornillarlas";
 
         if (wheelsScrewed >= 2)
         {
@@ -52,7 +51,9 @@ public class CarMinigameController : MonoBehaviour
     {
         if(wheelsScrewed >= neededWheels)
         {
-            //AQUI HABRIAS QUE LLAMAR AL CODIGO DE MINIJUEGO COMPLETADO
+            GameManager.Instance.miniGameTiresCompleted = true;
+            InventoryController.Instance.RemoveAllItem("Tire");
+            GameManager.Instance.miniGameCar();
             Debug.Log("Minijuego completado");
         }
     }

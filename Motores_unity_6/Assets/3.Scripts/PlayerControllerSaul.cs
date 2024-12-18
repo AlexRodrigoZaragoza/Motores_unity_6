@@ -103,11 +103,4 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.up * mouseX);
     }
-
-    void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Enemy")){
-            Debug.Log("Entra el jugador en el radio de muerte del enemigo.");
-            GameManager.Instance.Die();
-        }
-    }
 }
