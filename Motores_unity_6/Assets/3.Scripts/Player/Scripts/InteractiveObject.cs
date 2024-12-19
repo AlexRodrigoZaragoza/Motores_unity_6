@@ -4,9 +4,11 @@ using System.Collections.Generic;
 
 public class InteractiveObject : MonoBehaviour
 {
-    
+   /* 
     public void Interaction()
     {
         Destroy(gameObject);
-    }
+
+        
+    }*/
 }
