@@ -525,6 +525,7 @@ GameObject:
   - component: {fileID: 2236002423357237699}
   - component: {fileID: 6896003636389042491}
   - component: {fileID: 7845391226210009454}
+  - component: {fileID: 385413883869237772}
   m_Layer: 0
   m_Name: Protagonista
   m_TagString: Untagged
@@ -540,7 +541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858531966397260609}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 63.759182, y: 2.241, z: 27.2}
   m_LocalScale: {x: 0.44315, y: 0.44315, z: 0.44314998}
   m_ConstrainProportionsScale: 0
@@ -591,6 +592,8 @@ MonoBehaviour:
   sprintSpeed: 7
   drag: 15
   movingThreshold: 0.01
+  gravity: 25
+  jumpSpeed: 1
   lookSenseH: 0.1
   lookSenseV: 0.1
   lookLimitv: 89
@@ -768,6 +771,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &385413883869237772
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858531966397260609}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2369404401420045828
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,13 +856,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2414489338245849262}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000074505797, y: -4.037043e-10, z: -2.0812725e-11, w: 1}
+  m_LocalRotation: {x: 0.7169901, y: -2.2754597e-10, z: 3.1253264e-10, w: 0.6970833}
   m_LocalPosition: {x: 0.000602623, y: 0.30475846, z: 1.370014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5529925508444880248}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 91.61301, y: 0, z: 0}
 --- !u!20 &4887496706881954136
 Camera:
   m_ObjectHideFlags: 0
