@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/0.Scenes/UsableScenes/EscenaGasolineraConIA.unity
+    path: "Assets/0.Scenes/UsableScenes/EscenaGasolineraConIA_Implementaci\xF3nEstamina.unity"
     guid: a901dc6f922065d4dbd82c5a800112b2
   - enabled: 1
     path: Assets/0.Scenes/UsableScenes/MainScene.unity

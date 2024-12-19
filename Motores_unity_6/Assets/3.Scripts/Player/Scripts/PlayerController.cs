@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 namespace FinalCharacterController
 {
@@ -29,6 +30,9 @@ namespace FinalCharacterController
         public float lookLimitv = 89f;
 
 
+        private float stamineValue = 10;
+        public Image barraEstamina;
+
         private PlayerLocomotionInput _playerLocomotionInput;
         private PlayerState _playerState;
         private Vector2 _cameraRotation = Vector2.zero;
@@ -52,6 +56,8 @@ namespace FinalCharacterController
             UpdateMovementState();
             HandleVerticalMovement();
             HandleLateralMovement();
+
+            barraEstamina.fillAmount = stamineValue / 10f;
         }
 
         private void UpdateMovementState()
@@ -61,7 +67,30 @@ namespace FinalCharacterController
             bool isSprinting = _playerLocomotionInput.SprintToggleOn && isMovingLaterally;
             bool isGrounded = IsGrounded();
 
-
+            if (isSprinting)
+            {
+                if(stamineValue <= 0)
+                {
+                    StamineReloading();
+                    sprintSpeed = 4f;
+                }
+                else
+                {
+                    StamineGoingDown();
+                    sprintSpeed = 7f;
+                }
+            }
+            else
+            {
+                if (stamineValue < 10)
+                {
+                    StamineReloading();
+                }
+                else
+                {
+                    stamineValue = 10;
+                }
+            }
 
             PlayerMovementState lateralState = isSprinting ? PlayerMovementState.Running :
                 isMovingLaterally || isMovementInput ? PlayerMovementState.Walking : PlayerMovementState.Idling;
@@ -95,6 +124,16 @@ namespace FinalCharacterController
             }
 
 
+        }
+
+        private void StamineGoingDown()
+        {
+            stamineValue -= Time.deltaTime * 3f;
+        }
+
+        private void StamineReloading()
+        {
+            stamineValue += Time.deltaTime * 0.5f;
         }
 
         private void HandleLateralMovement()
