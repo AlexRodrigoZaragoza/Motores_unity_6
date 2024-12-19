@@ -15,6 +15,14 @@ namespace FinalCharacterController
             CurrentPlayerMovementState = playerMovementState;
         }
 
+        public bool InGroudedState()
+        {
+            return CurrentPlayerMovementState == PlayerMovementState.Idling ||
+                   CurrentPlayerMovementState == PlayerMovementState.Walking ||
+                   CurrentPlayerMovementState == PlayerMovementState.Running;
+
+        }
+
     }
 
     public enum PlayerMovementState
@@ -25,6 +33,8 @@ namespace FinalCharacterController
         Crouch = 3,
         Crouching = 4,
         Dead = 5,
+        Jumping = 6,
+        Falling = 7,
 
     }
 }

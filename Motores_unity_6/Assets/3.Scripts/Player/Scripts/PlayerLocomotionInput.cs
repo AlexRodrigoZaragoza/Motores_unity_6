@@ -15,6 +15,7 @@ namespace FinalCharacterController
         public PlayerControls PlayerControls { get; private set; }
         public Vector2 MovementInput { get; private set; }
         public Vector2 LookInput { get; private set; }
+        public bool JumpPressed { get; private set; }
 
         private void OnEnable()
         {
@@ -31,6 +32,10 @@ namespace FinalCharacterController
             PlayerControls.PlayerLocomotionMap.RemoveCallbacks(this);
         }
 
+        private void LateUpdate()
+        {
+            JumpPressed = false;
+        }
         public void OnCamera(InputAction.CallbackContext context)
         {
             LookInput = context.ReadValue<Vector2>();
@@ -52,6 +57,13 @@ namespace FinalCharacterController
             {
                 SprintToggleOn = !holdToSprint && SprintToggleOn;
             }
+        }
+
+        public void OnJump(InputAction.CallbackContext context)
+        {
+            if (!context.performed)
+                return;
+            JumpPressed = true;
         }
     }
 }

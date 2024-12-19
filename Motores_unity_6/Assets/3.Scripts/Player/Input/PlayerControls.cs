@@ -55,6 +55,15 @@ namespace FinalCharacterController
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""82463cb2-76d5-400a-87b8-7a46990fb952"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -134,6 +143,17 @@ namespace FinalCharacterController
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f223d731-fb5d-42a0-9531-8e03779fcf91"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -193,6 +213,7 @@ namespace FinalCharacterController
             m_PlayerLocomotionMap_Move = m_PlayerLocomotionMap.FindAction("Move", throwIfNotFound: true);
             m_PlayerLocomotionMap_Camera = m_PlayerLocomotionMap.FindAction("Camera", throwIfNotFound: true);
             m_PlayerLocomotionMap_Sprint = m_PlayerLocomotionMap.FindAction("Sprint", throwIfNotFound: true);
+            m_PlayerLocomotionMap_Jump = m_PlayerLocomotionMap.FindAction("Jump", throwIfNotFound: true);
             // PlayerActionMap
             m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
             m_PlayerActionMap_Crouch = m_PlayerActionMap.FindAction("Crouch", throwIfNotFound: true);
@@ -267,6 +288,7 @@ namespace FinalCharacterController
         private readonly InputAction m_PlayerLocomotionMap_Move;
         private readonly InputAction m_PlayerLocomotionMap_Camera;
         private readonly InputAction m_PlayerLocomotionMap_Sprint;
+        private readonly InputAction m_PlayerLocomotionMap_Jump;
         public struct PlayerLocomotionMapActions
         {
             private @PlayerControls m_Wrapper;
@@ -274,6 +296,7 @@ namespace FinalCharacterController
             public InputAction @Move => m_Wrapper.m_PlayerLocomotionMap_Move;
             public InputAction @Camera => m_Wrapper.m_PlayerLocomotionMap_Camera;
             public InputAction @Sprint => m_Wrapper.m_PlayerLocomotionMap_Sprint;
+            public InputAction @Jump => m_Wrapper.m_PlayerLocomotionMap_Jump;
             public InputActionMap Get() { return m_Wrapper.m_PlayerLocomotionMap; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -292,6 +315,9 @@ namespace FinalCharacterController
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
 
             private void UnregisterCallbacks(IPlayerLocomotionMapActions instance)
@@ -305,6 +331,9 @@ namespace FinalCharacterController
                 @Sprint.started -= instance.OnSprint;
                 @Sprint.performed -= instance.OnSprint;
                 @Sprint.canceled -= instance.OnSprint;
+                @Jump.started -= instance.OnJump;
+                @Jump.performed -= instance.OnJump;
+                @Jump.canceled -= instance.OnJump;
             }
 
             public void RemoveCallbacks(IPlayerLocomotionMapActions instance)
@@ -381,6 +410,7 @@ namespace FinalCharacterController
             void OnMove(InputAction.CallbackContext context);
             void OnCamera(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
         }
         public interface IPlayerActionMapActions
         {
