@@ -24,10 +24,14 @@ namespace FinalCharacterController
         public float gravity = 25f;
         public float jumpSpeed = 1.0f;
 
+        bool misco;
+
         [Header("Camera Settings")]
         public float lookSenseH = 0.1f;
         public float lookSenseV = 0.1f;
         public float lookLimitv = 89f;
+
+
 
 
         private float stamineValue = 10;
@@ -38,6 +42,10 @@ namespace FinalCharacterController
         private Vector2 _cameraRotation = Vector2.zero;
         private Vector2 _playerTargetRotation = Vector2.zero;
 
+        Vector3 movementDirection;
+
+        GameManager gameManager;
+
         private float _verticalVelocity = 0f;
         #endregion
 
@@ -46,6 +54,10 @@ namespace FinalCharacterController
         {
             _playerLocomotionInput = GetComponent<PlayerLocomotionInput>();
             _playerState = GetComponent<PlayerState>();
+            Time.timeScale = 1f;
+            gameManager = FindFirstObjectByType<GameManager>();
+
+            gameManager.canmoveCamera = true;
         }
 
         #endregion
@@ -57,11 +69,17 @@ namespace FinalCharacterController
             HandleVerticalMovement();
             HandleLateralMovement();
 
+
+
             barraEstamina.fillAmount = stamineValue / 10f;
+
+            Debug.Log(_characterController.velocity.y);
+            Debug.Log(_playerState.InGroudedState());
         }
 
         private void UpdateMovementState()
         {
+
             bool isMovementInput = _playerLocomotionInput.MovementInput != Vector2.zero;
             bool isMovingLaterally = IsMovingLaterally();
             bool isSprinting = _playerLocomotionInput.SprintToggleOn && isMovingLaterally;
@@ -69,7 +87,7 @@ namespace FinalCharacterController
 
             if (isSprinting)
             {
-                if(stamineValue <= 0)
+                if (stamineValue <= 0)
                 {
                     StamineReloading();
                     sprintSpeed = 4f;
@@ -97,7 +115,7 @@ namespace FinalCharacterController
 
             _playerState.SetPlayerMovementState(lateralState);
 
-            if (!isGrounded && _characterController.velocity.y >= 0f)
+            if (!isGrounded && _characterController.velocity.y > 0f)
             {
                 _playerState.SetPlayerMovementState(PlayerMovementState.Jumping);
 
@@ -106,13 +124,15 @@ namespace FinalCharacterController
             {
                 _playerState.SetPlayerMovementState(PlayerMovementState.Falling);
             }
+
+
         }
 
         private void HandleVerticalMovement()
         {
             bool isGrounded = _playerState.InGroudedState();
 
-            if (isGrounded && _verticalVelocity < 0)
+            if (isGrounded && _verticalVelocity <= 0)
             {
                 _verticalVelocity = 0;
             }
@@ -138,39 +158,51 @@ namespace FinalCharacterController
 
         private void HandleLateralMovement()
         {
-            bool isSprinting = _playerState.CurrentPlayerMovementState == PlayerMovementState.Running;
-            bool isGrounded = _playerState.InGroudedState();
+            if (gameManager.canmoveCamera)
+            {
+                bool isSprinting = _playerState.CurrentPlayerMovementState == PlayerMovementState.Running;
+                bool isGrounded = _playerState.InGroudedState();
 
-            float lateralAcceleration = isSprinting ? sprintAcceleration : runAcceleration;
-            float clampLateralMagnitude = isSprinting ? sprintSpeed : runSpeed;
+                float lateralAcceleration = isSprinting ? sprintAcceleration : runAcceleration;
+                float clampLateralMagnitude = isSprinting ? sprintSpeed : runSpeed;
 
-            Vector3 cameraForwardXZ = new Vector3(_playerCamera.transform.forward.x, 0f, _playerCamera.transform.forward.z).normalized;
-            Vector3 cameraRightXZ = new Vector3(_playerCamera.transform.right.x, 0f, _playerCamera.transform.right.z).normalized;
-            Vector3 movementDirection = cameraRightXZ * _playerLocomotionInput.MovementInput.x + cameraForwardXZ * _playerLocomotionInput.MovementInput.y;
 
-            Vector3 movementDelta = movementDirection * lateralAcceleration;
-            Vector3 newVelocity = _characterController.velocity + movementDelta;
 
-            // Add drag to player
-            Vector3 currentDrag = newVelocity.normalized * drag * Time.deltaTime;
-            newVelocity = (newVelocity.magnitude > drag * Time.deltaTime) ? newVelocity - currentDrag : Vector3.zero;
-            newVelocity = Vector3.ClampMagnitude(newVelocity, clampLateralMagnitude);
-            newVelocity.y = _verticalVelocity;
-            // Move character (Unity suggests only calling this once per tick)
-            _characterController.Move(newVelocity * Time.deltaTime);
+                Vector3 cameraForwardXZ = new Vector3(_playerCamera.transform.forward.x, 0f, _playerCamera.transform.forward.z).normalized;
+                Vector3 cameraRightXZ = new Vector3(_playerCamera.transform.right.x, 0f, _playerCamera.transform.right.z).normalized;
+                movementDirection = cameraRightXZ * _playerLocomotionInput.MovementInput.x + cameraForwardXZ * _playerLocomotionInput.MovementInput.y;
+
+
+
+                Vector3 movementDelta = movementDirection * lateralAcceleration;
+                Vector3 newVelocity = _characterController.velocity + movementDelta;
+
+                // Add drag to player
+                Vector3 currentDrag = newVelocity.normalized * drag * Time.deltaTime;
+                newVelocity = (newVelocity.magnitude > drag * Time.deltaTime) ? newVelocity - currentDrag : Vector3.zero;
+                newVelocity = Vector3.ClampMagnitude(newVelocity, clampLateralMagnitude);
+                newVelocity.y = _verticalVelocity;
+                // Move character (Unity suggests only calling this once per tick)
+                _characterController.Move(newVelocity * Time.deltaTime);
+            }
+
         }
         #endregion
 
         #region Late Update Logic
         private void LateUpdate()
         {
-            _cameraRotation.x += lookSenseH * _playerLocomotionInput.LookInput.x;
-            _cameraRotation.y = Mathf.Clamp(_cameraRotation.y - lookSenseV * _playerLocomotionInput.LookInput.y, -lookLimitv, lookLimitv);
+            if (gameManager.canmoveCamera)
+            {
+                _cameraRotation.x += lookSenseH * _playerLocomotionInput.LookInput.x;
+                _cameraRotation.y = Mathf.Clamp(_cameraRotation.y - lookSenseV * _playerLocomotionInput.LookInput.y, -lookLimitv, lookLimitv);
 
-            _playerTargetRotation.x += transform.eulerAngles.x + lookSenseH * _playerLocomotionInput.LookInput.x;
-            transform.rotation = Quaternion.Euler(0f, _playerTargetRotation.x, 0f);
+                _playerTargetRotation.x += transform.eulerAngles.x + lookSenseH * _playerLocomotionInput.LookInput.x;
+                transform.rotation = Quaternion.Euler(0f, _playerTargetRotation.x, 0f);
 
-            _playerCamera.transform.rotation = Quaternion.Euler(_cameraRotation.y, _cameraRotation.x, 0f);
+                _playerCamera.transform.rotation = Quaternion.Euler(_cameraRotation.y, _cameraRotation.x, 0f);
+            }
+
         }
         #endregion
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public enum PlayerAction { Idle, Walking, Running, Action, Bend }
     public PlayerAction currentAction = PlayerAction.Idle;
+    PlayerController playerController;
 
     public AudioSource backgroundMusic;
     public AudioSource nightSounds;
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
     public GameObject confirmExit;
     public GameObject cancelExit;
     public bool isPaused = false;
+    public bool canmoveCamera;
 
     [Header("Minigames")]
     public bool miniGameTiresCompleted = false;
@@ -31,9 +34,10 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-
+        playerController = FindFirstObjectByType<PlayerController>();
         warningPanel.SetActive(false);
         pauseMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -47,11 +51,14 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+
             if (isPaused == false)
             {
+                canmoveCamera = false;
                 warningPanel.SetActive(false);
                 pauseMenu.SetActive(true);
                 originalVolume = monsterSound.volume;
+                Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0f;
                 backgroundMusic.Pause();
                 nightSounds.Pause();
@@ -59,10 +66,9 @@ public class GameManager : MonoBehaviour
                 isPaused = true;
                 Debug.Log("Juego en pausa");
             }
-            else
-            {
-                OnResumePressed();
-            }
+
+            
+
         }
     }
 
@@ -85,8 +91,10 @@ public class GameManager : MonoBehaviour
 
     public void OnResumePressed()
     {
+        canmoveCamera = true;
         warningPanel.SetActive(false);
         pauseMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1f;
         backgroundMusic.UnPause();
         nightSounds.UnPause();
@@ -104,8 +112,9 @@ public class GameManager : MonoBehaviour
     public void OnConfirmExit()
     {
         Debug.Log("Saliendo del juego al menú inicial");
-        DestroyGameManager();
         SceneManager.LoadScene("MainScene");
+        DestroyGameManager();
+
     }
 
     public void OnCancelExit()
@@ -117,9 +126,17 @@ public class GameManager : MonoBehaviour
     public void miniGameCar()
     {
         if (allTiresColected && !miniGameTiresCompleted)
+        {
             miniGameCarCanvas.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         else if (miniGameTiresCompleted)
+        {
             miniGameCarCanvas.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
         else
             Debug.Log("Faltan ruedas");
     }

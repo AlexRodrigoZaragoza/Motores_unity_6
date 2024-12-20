@@ -28,14 +28,14 @@ namespace FinalCharacterController
             if (PlayerControls == null)
             {
                 PlayerControls = new PlayerControls();
-                PlayerControls.Enable();
+                PlayerControls?.Enable();
             }
 
         }
 
         private void OnDisable()
         {
-            if (PlayerControls == null)
+            if (PlayerControls != null)
                 PlayerControls.Disable();
         }
     }
