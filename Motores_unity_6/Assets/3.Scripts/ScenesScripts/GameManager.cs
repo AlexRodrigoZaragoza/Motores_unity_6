@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 
         if (miniGameTiresCompleted && miniGameSparkPlugCompleted)
         {
+            Cursor.lockState = CursorLockMode.None;
             Debug.Log("Todos los minijuegos completos, saliendo del juego");
             SceneManager.LoadScene("MainScene");
             DestroyGameManager();
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     public void Die()
     {
+        Cursor.lockState = CursorLockMode.None;
         Debug.Log("El jugador ha muerto");
         SceneManager.LoadScene("GameOver");
     }
