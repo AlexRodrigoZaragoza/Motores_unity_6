@@ -12,6 +12,15 @@ public class CarMinigameController : MonoBehaviour
     public int wheelsScrewed;
     [SerializeField] private GameObject carSide1, carSide2;
 
+    GameManager Manager;
+    InventoryController inventoryController;
+
+
+    private void Start()
+    {
+        Manager = FindFirstObjectByType<GameManager>();
+        inventoryController = FindFirstObjectByType<InventoryController>();
+    }
     //HAY QUE ASIGNAR A MANO EL AUDIO SOURCE
     private void Update()
     {
@@ -51,9 +60,9 @@ public class CarMinigameController : MonoBehaviour
     {
         if(wheelsScrewed >= neededWheels)
         {
-            GameManager.Instance.miniGameTiresCompleted = true;
-            InventoryController.Instance.RemoveAllItem("Tire");
-            GameManager.Instance.miniGameCar();
+            Manager.miniGameTiresCompleted = true;
+            inventoryController.RemoveAllItem("Tire");
+            Manager.miniGameCar();
             Debug.Log("Minijuego completado");
         }
     }

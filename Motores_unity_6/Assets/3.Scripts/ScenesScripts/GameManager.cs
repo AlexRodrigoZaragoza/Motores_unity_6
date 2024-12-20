@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     public static GameManager Instance { get; private set; }
 
@@ -28,27 +29,26 @@ public class GameManager : MonoBehaviour {
     public bool allTiresColected = false;
     public GameObject miniGameCarCanvas;
 
-    void Awake() {
-        if (Instance != null && Instance != this) {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-        
+    void Awake()
+    {
+
         warningPanel.SetActive(false);
         pauseMenu.SetActive(false);
     }
 
-    void Update() {
+    void Update()
+    {
 
-        if(miniGameTiresCompleted && miniGameSparkPlugCompleted) {
+        if (miniGameTiresCompleted && miniGameSparkPlugCompleted)
+        {
             Debug.Log("Todos los minijuegos completos, saliendo del juego");
             SceneManager.LoadScene("MainScene");
             DestroyGameManager();
         }
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            if(isPaused == false){
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused == false)
+            {
                 warningPanel.SetActive(false);
                 pauseMenu.SetActive(true);
                 originalVolume = monsterSound.volume;
@@ -58,27 +58,33 @@ public class GameManager : MonoBehaviour {
                 monsterSound.volume = pausedVolume;
                 isPaused = true;
                 Debug.Log("Juego en pausa");
-            }else {
+            }
+            else
+            {
                 OnResumePressed();
             }
         }
     }
 
-    public void SetPlayerAction(PlayerAction action) {
+    public void SetPlayerAction(PlayerAction action)
+    {
         currentAction = action;
     }
 
-    public void DestroyGameManager() {
-        Destroy(Instance.gameObject);
-        Instance = null;
+    public void DestroyGameManager()
+    {
+        Destroy(gameObject);
+
     }
 
-    public void Die() {
+    public void Die()
+    {
         Debug.Log("El jugador ha muerto");
         SceneManager.LoadScene("GameOver");
     }
 
-    public void OnResumePressed() {
+    public void OnResumePressed()
+    {
         warningPanel.SetActive(false);
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
@@ -89,26 +95,30 @@ public class GameManager : MonoBehaviour {
         Debug.Log("Juego reanudado");
     }
 
-    public void OnExitPressed() {
+    public void OnExitPressed()
+    {
         pauseMenu.SetActive(false);
         warningPanel.SetActive(true);
     }
 
-    public void OnConfirmExit() {
+    public void OnConfirmExit()
+    {
         Debug.Log("Saliendo del juego al menú inicial");
         DestroyGameManager();
         SceneManager.LoadScene("MainScene");
     }
 
-    public void OnCancelExit() {
+    public void OnCancelExit()
+    {
         warningPanel.SetActive(false);
         pauseMenu.SetActive(true);
     }
 
-    public void miniGameCar(){
-        if(allTiresColected && !miniGameTiresCompleted)
+    public void miniGameCar()
+    {
+        if (allTiresColected && !miniGameTiresCompleted)
             miniGameCarCanvas.SetActive(true);
-        else if(miniGameTiresCompleted)
+        else if (miniGameTiresCompleted)
             miniGameCarCanvas.SetActive(false);
         else
             Debug.Log("Faltan ruedas");

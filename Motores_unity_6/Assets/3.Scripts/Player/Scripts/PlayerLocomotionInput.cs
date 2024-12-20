@@ -28,6 +28,7 @@ namespace FinalCharacterController
 
         private void OnDisable()
         {
+            PlayerControls.Disable();
             PlayerControls.PlayerLocomotionMap.Disable();
             PlayerControls.PlayerLocomotionMap.RemoveCallbacks(this);
         }

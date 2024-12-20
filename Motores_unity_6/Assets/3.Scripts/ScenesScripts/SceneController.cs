@@ -5,7 +5,7 @@ public class SceneController : MonoBehaviour
 {
     public void EnterGame()
     {
-        SceneManager.LoadScene("EscenaGasolineraConIA");
+        SceneManager.LoadScene("EscenaJuego");
     }
 
     public void MainScene()

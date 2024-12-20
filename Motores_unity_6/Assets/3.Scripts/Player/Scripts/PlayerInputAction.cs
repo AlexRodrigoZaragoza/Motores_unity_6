@@ -43,10 +43,13 @@ namespace FinalCharacterController
                 return;
             }
 
-            PlayerInputManager.Instance.PlayerControls.PlayerActionMap.Enable();
+            //PlayerInputManager.Instance.PlayerControls.PlayerActionMap.Enable();
+            PlayerInputManager.Instance.PlayerControls.PlayerActionMap.Disable();
             PlayerInputManager.Instance.PlayerControls.PlayerActionMap.RemoveCallbacks(this);
         }
 
+
+       
         #endregion
 
         #region Update
