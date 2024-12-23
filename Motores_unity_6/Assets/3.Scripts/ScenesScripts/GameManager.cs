@@ -66,10 +66,18 @@ public class GameManager : MonoBehaviour
                 monsterSound.volume = pausedVolume;
                 isPaused = true;
                 Debug.Log("Juego en pausa");
+            }else {
+                canmoveCamera = true;
+                warningPanel.SetActive(false);
+                pauseMenu.SetActive(false);
+                Cursor.lockState = CursorLockMode.None;
+                Time.timeScale = 1f;
+                backgroundMusic.UnPause();
+                nightSounds.UnPause();
+                monsterSound.volume = originalVolume;
+                isPaused = false;
+                Debug.Log("Juego reanudado");
             }
-
-            
-
         }
     }
 
@@ -96,7 +104,7 @@ public class GameManager : MonoBehaviour
         canmoveCamera = true;
         warningPanel.SetActive(false);
         pauseMenu.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 1f;
         backgroundMusic.UnPause();
         nightSounds.UnPause();
