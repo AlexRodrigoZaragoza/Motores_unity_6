@@ -107,22 +107,22 @@ public class GameManager : MonoBehaviour
 
     public void OnExitPressed()
     {
-        pauseMenu.SetActive(false);
-        warningPanel.SetActive(true);
+        Debug.Log("Saliendo del juego al menú inicial");
+        SceneManager.LoadScene("MainScene");
+        DestroyGameManager();
     }
 
     public void OnConfirmExit()
     {
-        Debug.Log("Saliendo del juego al menú inicial");
-        SceneManager.LoadScene("MainScene");
-        DestroyGameManager();
+        //pauseMenu.SetActive(false);
+        //warningPanel.SetActive(true);
 
     }
 
     public void OnCancelExit()
     {
-        warningPanel.SetActive(false);
-        pauseMenu.SetActive(true);
+        //warningPanel.SetActive(false);
+        //pauseMenu.SetActive(true);
     }
 
     public void miniGameCar()
