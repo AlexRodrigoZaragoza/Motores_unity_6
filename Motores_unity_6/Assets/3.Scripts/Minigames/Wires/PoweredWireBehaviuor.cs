@@ -49,7 +49,7 @@ public class PoweredWireBehaviuor : MonoBehaviour
             float mouseX = Input.mousePosition.x;
             float mouseY = Input.mousePosition.y;
 
-            gameObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mouseX, mouseY, transform.position.z));
+            gameObject.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mouseX, mouseY, 1));
         }
         else
         {

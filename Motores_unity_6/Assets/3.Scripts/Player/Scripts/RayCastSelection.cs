@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Unity.VisualScripting;
+
+
 
 public class RayCastSelection : MonoBehaviour
 {
@@ -46,7 +46,7 @@ public class RayCastSelection : MonoBehaviour
 
     void ObjectSelected(Transform transform)
     {
-        transform.GetComponent<MeshRenderer>().material.color = Color.green;
+        transform.GetComponent<MeshRenderer>().material.color = UnityEngine.Color.green;
         lastRecon = transform.gameObject;
     }
 
@@ -54,7 +54,7 @@ public class RayCastSelection : MonoBehaviour
     {
         if (lastRecon)
         {
-            lastRecon.GetComponent<Renderer>().material.color = Color.white;
+            lastRecon.GetComponent<Renderer>().material.color = UnityEngine.Color.white;
             lastRecon = null;
         }
     }
