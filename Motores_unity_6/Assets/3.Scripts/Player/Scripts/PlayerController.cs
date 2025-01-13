@@ -73,8 +73,8 @@ namespace FinalCharacterController
 
             barraEstamina.fillAmount = stamineValue / 10f;
 
-            Debug.Log(_characterController.velocity.y);
-            Debug.Log(_playerState.InGroudedState());
+//            Debug.Log(_characterController.velocity.y);
+//            Debug.Log(_playerState.InGroudedState());
         }
 
         private void UpdateMovementState()

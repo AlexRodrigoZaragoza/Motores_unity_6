@@ -26,17 +26,19 @@ public class InventoryController : MonoBehaviour
                 tiresColected++;
                 Debug.Log("Rueda recogida, hay un total de " + tiresColected);
             }
-            if (tiresColected == 4)
-            {
-
-                Manager.allTiresColected = true;
-                Debug.Log("Todas las ruedas recogidas");
-            }
-            if (item.Contains("SparkPlug"))
+            else if (item.Contains("SparkPlug"))
             {
                 Manager.miniGameSparkPlugCompleted = true;
-
                 Debug.Log("Minijuego de encontrar bujia completado.");
+            }
+            else if (item.Contains("Key")){
+                Manager.hasKey = true;
+                Debug.Log("El jugador tiene la llave y el game manager lo sabe");
+            }
+            if (tiresColected == 4)
+            {
+                Manager.allTiresColected = true;
+                Debug.Log("Todas las ruedas recogidas");
             }
             string mensajeInventario = "";
             mensajeInventario += ("Contenido actual del inventario:");

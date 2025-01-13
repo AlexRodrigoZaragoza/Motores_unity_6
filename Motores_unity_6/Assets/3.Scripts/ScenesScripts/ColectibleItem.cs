@@ -22,12 +22,19 @@ public class CollectibleItem : MonoBehaviour
     public void Interactions()
     {
 
-        if (itemName.Equals("CocheProta"))
-        {
+        if (itemName.Equals("CocheProta")) {
             Debug.Log("Has clicado sobre el coche");
-            Manager.miniGameCar();
+            Manager.InteractionCar();
         }
-        else if (itemName.Contains("Tire"))
+        else if(itemName.Equals("Door")) {
+            Debug.Log("He interaccionado con la puerta");
+        }
+        else{
+            Debug.Log("El jugador recogió el objeto: " + itemName);
+            Inventory.AddItem(itemName);
+            Destroy(gameObject);
+        }
+/*        else if (itemName.Contains("Tire"))
         {
             Debug.Log("El jugador recogió el objeto: " + itemName);
             Inventory.AddItem(itemName);
@@ -39,10 +46,6 @@ public class CollectibleItem : MonoBehaviour
             Inventory.AddItem(itemName);
             Destroy(gameObject);
         }
-
-
-
-
-
+*/      
     }
 }

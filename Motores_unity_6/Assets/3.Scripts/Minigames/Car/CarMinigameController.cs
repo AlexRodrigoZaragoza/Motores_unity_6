@@ -62,7 +62,7 @@ public class CarMinigameController : MonoBehaviour
         {
             Manager.miniGameTiresCompleted = true;
             inventoryController.RemoveAllItem("Tire");
-            Manager.miniGameCar();
+            Manager.InteractionCar();
             Debug.Log("Minijuego completado");
         }
     }

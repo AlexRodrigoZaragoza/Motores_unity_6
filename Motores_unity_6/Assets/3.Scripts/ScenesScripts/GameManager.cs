@@ -29,8 +29,15 @@ public class GameManager : MonoBehaviour
     [Header("Minigames")]
     public bool miniGameTiresCompleted = false;
     public bool miniGameSparkPlugCompleted = false;
+    public bool miniGameWiresCompleted = false;
     public bool allTiresColected = false;
+    private bool allMiniGamesCompleted = false;
     public GameObject miniGameCarCanvas;
+
+    [Header ("DoorBehaviour")]
+    public Animator doorAnimator;
+    private bool isOpen = false;
+    public bool hasKey = false;
 
     void Awake()
     {
@@ -43,13 +50,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if (miniGameTiresCompleted && miniGameSparkPlugCompleted)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Debug.Log("Todos los minijuegos completos, saliendo del juego");
-            SceneManager.LoadScene("MainScene");
-            DestroyGameManager();
-        }
+        if (miniGameTiresCompleted && miniGameSparkPlugCompleted && miniGameTiresCompleted)
+            allMiniGamesCompleted = true;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
 
@@ -104,7 +106,7 @@ public class GameManager : MonoBehaviour
         canmoveCamera = true;
         warningPanel.SetActive(false);
         pauseMenu.SetActive(false);
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.None; 
         Time.timeScale = 1f;
         backgroundMusic.UnPause();
         nightSounds.UnPause();
@@ -133,9 +135,15 @@ public class GameManager : MonoBehaviour
         //pauseMenu.SetActive(true);
     }
 
-    public void miniGameCar()
+    public void InteractionCar()
     {
-        if (allTiresColected && !miniGameTiresCompleted)
+        if(allMiniGamesCompleted){
+            Cursor.lockState = CursorLockMode.None;
+            Debug.Log("Todos los minijuegos completados, el jugador ha consiguido escapar");
+            SceneManager.LoadScene("MainScene");
+            DestroyGameManager();
+        }
+        else if (allTiresColected && !miniGameTiresCompleted)
         {
             miniGameCarCanvas.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
@@ -149,5 +157,13 @@ public class GameManager : MonoBehaviour
 
         else
             Debug.Log("Faltan ruedas");
+    }
+
+    public void AnimatedDoor(){
+        if(hasKey){
+            Debug.Log("El jugador tiene la llave");
+            doorAnimator.SetTrigger("PuertaGiratoria");
+        }else
+            Debug.Log("El jugador no tiene la llave");
     }
 }
