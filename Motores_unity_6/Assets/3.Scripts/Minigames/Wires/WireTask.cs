@@ -11,14 +11,16 @@ public class WireTask : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public float stretchDuration = 0.2f; // Duración del efecto de estiramiento
 
-    private Image currentWire;     // El cable que se está arrastrando
-    private int wiresConnected;     // Contador de cables conectados
+    public Image currentWire;     // El cable que se está arrastrando
+    public int wiresConnected;     // Contador de cables conectados
 
     public void OnPointerDown(PointerEventData eventData)
     {
+
         // Detectar si se hizo clic en un cable de la izquierda
         for (int i = 0; i < leftWires.Length; i++)
         {
+
             if (eventData.pointerCurrentRaycast.gameObject == leftWires[i].gameObject)
             {
                 currentWire = leftWires[i];
@@ -39,6 +41,7 @@ public class WireTask : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerUp(PointerEventData eventData)
     {
+
         if (currentWire != null)
         {
             bool connected = false;
@@ -46,9 +49,12 @@ public class WireTask : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             // Detectar si se soltó sobre un cable de la derecha
             for (int i = 0; i < rightWires.Length; i++)
             {
+
                 if (eventData.pointerCurrentRaycast.gameObject == rightWires[i].gameObject &&
-                    currentWire.color == rightWires[i].color) // Comprobar si coinciden los colores
+                     AreColorsSimilar(currentWire.color, rightWires[i].color, 0.1f)) // Tolerancia de 0.1
+
                 {
+                    Debug.Log("¡Cables coincidentes! Conectando...");
                     // Conectar los cables (visualmente)
                     currentWire.rectTransform.position = rightWires[i].rectTransform.position;
                     currentWire.raycastTarget = false; // Desactivar el raycast para que no se pueda volver a arrastrar
@@ -100,5 +106,12 @@ public class WireTask : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         }
 
         wireConnection.SetPosition(1, endPos); // Asegurar que la línea llega al punto final
+    }
+
+    bool AreColorsSimilar(UnityEngine.Color color1, UnityEngine.Color color2, float tolerance)
+    {
+        return Mathf.Abs(color1.r - color2.r) < tolerance &&
+               Mathf.Abs(color1.g - color2.g) < tolerance &&
+               Mathf.Abs(color1.b - color2.b) < tolerance;
     }
 }
