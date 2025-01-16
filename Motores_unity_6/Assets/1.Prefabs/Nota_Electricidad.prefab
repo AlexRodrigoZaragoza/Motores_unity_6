@@ -11,9 +11,12 @@ GameObject:
   - component: {fileID: 2677892025033985452}
   - component: {fileID: 1334775292913222153}
   - component: {fileID: 3846888027454404291}
-  m_Layer: 0
+  - component: {fileID: 8122155305784162260}
+  - component: {fileID: 3087021713562933536}
+  - component: {fileID: 5126573314159169379}
+  m_Layer: 7
   m_Name: Nota_Electricidad
-  m_TagString: Untagged
+  m_TagString: ObjetoInteractuable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3342260499200923414}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071067, y: -0.000000030908616, z: 0.000000030908623, w: 0.7071068}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: -0, y: 0.2101, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &1334775292913222153
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -40,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3342260499200923414}
-  m_Mesh: {fileID: -462981019419857548, guid: fc902f5674dfea74aa3eeaf1cc21e48c, type: 3}
+  m_Mesh: {fileID: -462981019419857548, guid: 8f47c64b1d16ebd47a61c2d0692df02b, type: 3}
 --- !u!23 &3846888027454404291
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -86,3 +89,60 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8122155305784162260
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3342260499200923414}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1515144191993293674, guid: 5c95890fbb55ad84c90d6e2f96b71986, type: 3}
+--- !u!114 &3087021713562933536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3342260499200923414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e575642133e4c741850f66d322df43b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Nota_Electricidad
+  TaskController: {fileID: 0}
+--- !u!65 &5126573314159169379
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3342260499200923414}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.02, y: 0.019999996, z: 0}
+  m_Center: {x: -7.997836e-32, y: 1.7354914e-31, z: 7.105426e-17}
