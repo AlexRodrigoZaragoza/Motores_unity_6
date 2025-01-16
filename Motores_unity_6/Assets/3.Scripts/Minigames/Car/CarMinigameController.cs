@@ -15,6 +15,7 @@ public class CarMinigameController : MonoBehaviour
     GameManager Manager;
     InventoryController inventoryController;
 
+    public TaskController taskController;
 
     private void Start()
     {

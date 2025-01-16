@@ -35,4 +35,24 @@ public class TaskController : MonoBehaviour
         else if (nota == 3) notaRuedas.SetActive(true);
         else if (nota == 4) notaBujia.SetActive(true);
     }
+
+    public void complete(int task)
+    {
+        if(task == 1)
+        {
+
+        }
+        else if(task == 2)
+        {
+
+        }
+        else if (task == 3)
+        {
+            notaRuedas.SetActive(false);
+        }
+        else if (task == 4)
+        {
+
+        }
+    }
 }

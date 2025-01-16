@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager1 : MonoBehaviour
 {
 
     public static GameManager Instance { get; private set; }
@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
     public GameObject cancelExit;
     public bool isPaused = false;
     public bool canmoveCamera;
-
-    public TaskController taskController;
 
     [Header("Minigames")]
     public bool miniGameTiresCompleted = false;
@@ -155,7 +153,6 @@ public class GameManager : MonoBehaviour
         {
             miniGameCarCanvas.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
-            taskController.complete(3);
         }
 
         else
