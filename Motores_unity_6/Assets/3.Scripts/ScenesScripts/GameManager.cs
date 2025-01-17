@@ -52,8 +52,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        if (miniGameTiresCompleted && miniGameSparkPlugCompleted && miniGameTiresCompleted)
+        if (miniGameTiresCompleted && miniGameSparkPlugCompleted && miniGameWiresCompleted)
+        { 
+            Debug.Log("Todos los minijuegos completados");
             allMiniGamesCompleted = true;
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
 
@@ -70,7 +73,9 @@ public class GameManager : MonoBehaviour
                 monsterSound.volume = pausedVolume;
                 isPaused = true;
                 Debug.Log("Juego en pausa");
-            }else {
+            }
+            else 
+            {
                 canmoveCamera = true;
                 warningPanel.SetActive(false);
                 pauseMenu.SetActive(false);
@@ -149,17 +154,26 @@ public class GameManager : MonoBehaviour
         {
             miniGameCarCanvas.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
+            Debug.Log("Ruedas recogidas pero no puestas");
         }
-
         else if (miniGameTiresCompleted)
         {
             miniGameCarCanvas.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             taskController.complete(3);
+            Debug.Log("Minijuego ruedas completado");
+            Debug.Log("miniGameTiresCompleted: " + miniGameTiresCompleted);
+            Debug.Log("miniGameSparkPlugCompleted: " + miniGameSparkPlugCompleted);
+            Debug.Log("miniGameWiresCompleted: " + miniGameWiresCompleted);
         }
-
         else
             Debug.Log("Faltan ruedas");
+    }
+
+    public void completeWiresMinigame()
+    {
+        miniGameWiresCompleted = true;
+        taskController.complete(1);
     }
 
     public void AnimatedDoor(){

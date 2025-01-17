@@ -14,6 +14,8 @@ public class WireTask : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public Image currentWire;     // El cable que se está arrastrando
     public int wiresConnected;     // Contador de cables conectados
 
+    GameManager Manager;
+
     public void OnPointerDown(PointerEventData eventData)
     {
 
@@ -83,6 +85,7 @@ public class WireTask : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             {
                 Debug.Log("¡Tarea completada!");
                 // Aquí puedes añadir la lógica para finalizar el minijuego
+                Manager.completeWiresMinigame();
             }
         }
     }

@@ -6,7 +6,7 @@ public class CollectibleItem : MonoBehaviour
     public string itemName;
     InventoryController Inventory;
     GameManager Manager;
-    public TaskController TaskController;
+    public TaskController taskController;
 
     void Start()
     {
@@ -33,25 +33,41 @@ public class CollectibleItem : MonoBehaviour
         else if (itemName.Equals("Nota_Electricidad"))
         {
             Debug.Log("He interaccionado con la nota");
-            TaskController.setNota(1);
+            taskController.setNota(1);
             Destroy(gameObject);
         }
         else if (itemName.Equals("Nota_Llave"))
         {
             Debug.Log("He interaccionado con la nota");
-            TaskController.setNota(2);
+            taskController.setNota(2);
             Destroy(gameObject);
         }
         else if (itemName.Equals("Nota_Ruedas"))
         {
             Debug.Log("He interaccionado con la nota");
-            TaskController.setNota(3);
+            taskController.setNota(3);
             Destroy(gameObject);
         }
         else if (itemName.Equals("Nota_Bujia"))
         {
             Debug.Log("He interaccionado con la nota");
-            TaskController.setNota(4);
+            taskController.setNota(4);
+            Destroy(gameObject);
+        }
+        else if(itemName.Equals("Key"))
+        {
+            Debug.Log("El jugador recogió la llave: " + itemName);
+            Inventory.AddItem(itemName);
+            Manager.hasKey = true;
+            taskController.complete(2);
+            Destroy(gameObject);
+        }
+        else if(itemName.Equals("SparkPlug"))
+        {
+            Debug.Log("El jugador recogió la bujía: " + itemName);
+            Inventory.AddItem(itemName);
+            Manager.miniGameSparkPlugCompleted = true;
+            taskController.complete(4);
             Destroy(gameObject);
         }
         else
