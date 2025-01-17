@@ -267,6 +267,4 @@ QualitySettings:
     terrainMaxTrees: 1000
     excludedTargetPlatforms: []
   m_TextureMipmapLimitGroupNames: []
-  m_PerPlatformDefaultQuality:
-    Standalone: 4
-    Windows Store Apps: 4
+  m_PerPlatformDefaultQuality: {}
