@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public bool allTiresColected = false;
     private bool allMiniGamesCompleted = false;
     public GameObject miniGameCarCanvas;
+    public ParticleSystem puzzleParticles;
 
     [Header ("DoorBehaviour")]
     public Animator doorAnimator;
@@ -87,6 +88,11 @@ public class GameManager : MonoBehaviour
                 isPaused = false;
                 Debug.Log("Juego reanudado");
             }
+        }
+        if (miniGameTiresCompleted)
+        {
+            puzzleParticles.Stop(); // Detiene la emisión de partículas
+            Debug.Log("Puzzle completado, partículas detenidas.");
         }
     }
 
