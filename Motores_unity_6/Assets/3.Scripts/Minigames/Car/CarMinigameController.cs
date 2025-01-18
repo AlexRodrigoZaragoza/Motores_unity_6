@@ -27,10 +27,10 @@ public class CarMinigameController : MonoBehaviour
     {
         if(wheelsSnapped < 2)
         {
-            infoText.text = "Arrastrar las ruedas al coche";
+            infoText.text = "Drag the wheels to the car.";
         }
         else
-            infoText.text = "Mantener <E> sobre las ruedas colocadas para atornillarlas";
+            infoText.text = "Hold <E> over the placed wheels to screw them in.";
 
         if (wheelsScrewed >= 2)
         {
