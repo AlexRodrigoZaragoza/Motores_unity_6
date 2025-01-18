@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         playerController = FindFirstObjectByType<PlayerController>();
         warningPanel.SetActive(false);
         pauseMenu.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
