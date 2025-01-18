@@ -118,7 +118,7 @@ TextureImporter:
         width: 504
         height: 312
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,7 +140,7 @@ TextureImporter:
         width: 309
         height: 311
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -149,6 +149,28 @@ TextureImporter:
       bones: []
       spriteID: cd64a201dcb424b45a773a4e772ff381
       internalID: 74618079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SPRITE_Cable_Amarillo_0
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 100
+        width: 144
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d18eb097c84c16458138c640731f0fb
+      internalID: -502158874
       vertices: []
       indices: 
       edges: []
@@ -168,6 +190,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       SPRITE_Cable_Amarillo: 74618079
+      SPRITE_Cable_Amarillo_0: -502158874
       SPRITE_Cable_Amarillo_Pelado: -5240583
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
