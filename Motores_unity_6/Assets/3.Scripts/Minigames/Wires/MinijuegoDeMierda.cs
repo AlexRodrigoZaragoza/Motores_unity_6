@@ -77,11 +77,11 @@ public class MinijuegoDeMierda : MonoBehaviour
             }
             if (successfulWires >= _rightWires.Count)
             {
-                GameManager.miniGameWiresCompleted = true;
                 GameManager.personaje.SetActive(true);
                 GameManager.pauseMenu.SetActive(true);
                 GameManager.GameplayCanvas.SetActive(true);
                 GameManager.miniGameWireCanvas.SetActive(false);
+                GameManager.completeWiresMinigame();
                 Debug.Log("TASK COMPLETED");
             }
             else
