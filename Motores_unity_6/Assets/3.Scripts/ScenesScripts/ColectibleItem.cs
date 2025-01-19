@@ -70,6 +70,11 @@ public class CollectibleItem : MonoBehaviour
             taskController.complete(4);
             Destroy(gameObject);
         }
+        else if (itemName.Equals("CuadroElectrico"))
+        {
+            Debug.Log("El jugador ha interactuado sobre el cuadro electrico");
+            Manager.WireMinigame();
+        }
         else
         {
             Debug.Log("El jugador recogió el objeto: " + itemName);
