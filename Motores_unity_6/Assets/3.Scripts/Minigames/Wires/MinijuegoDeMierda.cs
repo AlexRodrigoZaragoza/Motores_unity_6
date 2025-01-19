@@ -9,7 +9,7 @@ public class MinijuegoDeMierda : MonoBehaviour
     public List<CablesDeMierda> _leftWires = new List<CablesDeMierda>();
     public List<CablesDeMierda> _rightWires = new List<CablesDeMierda>();
 
-    public  CablesDeMierda CurrentDraggedWire;
+    public CablesDeMierda CurrentDraggedWire;
     public CablesDeMierda CurrentHoveredWire;
 
     public bool IsTaskCompleted = false;
@@ -17,8 +17,16 @@ public class MinijuegoDeMierda : MonoBehaviour
     private List<Color> _availableColors;
     private List<int> _availableLeftWireIndex;
     private List<int> _availableRightWireIndex;
+
+    GameManager GameManager;
+
+    private void Awake()
+    {
+        GameManager = FindFirstObjectByType<GameManager>();
+    }
     private void Start()
     {
+        
         _availableColors = new List<Color>(_wireColors);
         _availableLeftWireIndex = new List<int>();
         _availableRightWireIndex = new List<int>();
@@ -69,6 +77,11 @@ public class MinijuegoDeMierda : MonoBehaviour
             }
             if (successfulWires >= _rightWires.Count)
             {
+                GameManager.miniGameWiresCompleted = true;
+                GameManager.personaje.SetActive(true);
+                GameManager.pauseMenu.SetActive(true);
+                GameManager.GameplayCanvas.SetActive(true);
+                GameManager.miniGameWireCanvas.SetActive(false);
                 Debug.Log("TASK COMPLETED");
             }
             else
