@@ -184,13 +184,16 @@ public class GameManager : MonoBehaviour
 
     public void WireMinigame()
     {
-        personaje.SetActive(false);
-        pauseMenu.SetActive(false);
-        GameplayCanvas.SetActive(false);
-        CanvasMenuPausa.SetActive(false);
+        if (!miniGameWiresCompleted)
+        {
+            personaje.SetActive(false);
+            pauseMenu.SetActive(false);
+            GameplayCanvas.SetActive(false);
+            CanvasMenuPausa.SetActive(false);
 
-        miniGameWireCanvas.SetActive(true);      
-        Cursor.lockState = CursorLockMode.None;
+            miniGameWireCanvas.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
     public void completeWiresMinigame()
     {
