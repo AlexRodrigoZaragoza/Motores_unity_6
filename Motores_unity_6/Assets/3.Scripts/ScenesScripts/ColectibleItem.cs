@@ -12,7 +12,7 @@ public class CollectibleItem : MonoBehaviour
     {
         Inventory = FindFirstObjectByType<InventoryController>();
         Manager = FindFirstObjectByType<GameManager>();
-        
+
     }
 
     void Update()
@@ -23,12 +23,19 @@ public class CollectibleItem : MonoBehaviour
     public void Interactions()
     {
 
-        if (itemName.Equals("CocheProta")) {
+        if (itemName.Equals("CocheProta"))
+        {
             Debug.Log("Has clicado sobre el coche");
             Manager.InteractionCar();
         }
-        else if(itemName.Equals("Door")) {
+        else if (itemName.Equals("Door"))
+        {
             Debug.Log("He interaccionado con la puerta");
+            if(Manager.hasKey == true)
+            {
+                Destroy(gameObject);
+            }
+            
         }
         else if (itemName.Equals("Nota_Electricidad"))
         {
@@ -54,7 +61,7 @@ public class CollectibleItem : MonoBehaviour
             taskController.setNota(4);
             Destroy(gameObject);
         }
-        else if(itemName.Equals("Key"))
+        else if (itemName.Equals("Key"))
         {
             Debug.Log("El jugador recogió la llave: " + itemName);
             Inventory.AddItem(itemName);
@@ -62,7 +69,7 @@ public class CollectibleItem : MonoBehaviour
             taskController.complete(2);
             Destroy(gameObject);
         }
-        else if(itemName.Equals("SparkPlug"))
+        else if (itemName.Equals("SparkPlug"))
         {
             Debug.Log("El jugador recogió la bujía: " + itemName);
             Inventory.AddItem(itemName);
@@ -81,18 +88,6 @@ public class CollectibleItem : MonoBehaviour
             Inventory.AddItem(itemName);
             Destroy(gameObject);
         }
-/*        else if (itemName.Contains("Tire"))
-        {
-            Debug.Log("El jugador recogió el objeto: " + itemName);
-            Inventory.AddItem(itemName);
-            Destroy(gameObject);
-        }
-        else if (itemName.Equals("SparkPlug"))
-        {
-            Debug.Log("El jugador recogió el objeto: " + itemName);
-            Inventory.AddItem(itemName);
-            Destroy(gameObject);
-        }
-*/      
+
     }
 }
